@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -27,8 +28,6 @@ class AuthenticationTest extends TestCase
             "password" => "password",
         ]);
 
-        $response->assertStatus(200);
-
         $response->assertJson([
             "message" => "Login berhasil"
         ]);
@@ -43,6 +42,17 @@ class AuthenticationTest extends TestCase
         ]);
 
         $response->assertStatus(422);
+    }
+
+    public function test_users_can_logout()
+    {
+        Sanctum::actingAs($this->user);
+
+        $response = $this->postJson(route('v1.auth.logout'));
+
+        $response->assertJson([
+            "message" => "Logout berhasil"
+        ]);
     }
 
 
