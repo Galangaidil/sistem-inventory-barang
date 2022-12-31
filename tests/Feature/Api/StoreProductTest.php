@@ -4,7 +4,6 @@ namespace Tests\Feature\Api;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -12,7 +11,7 @@ class StoreProductTest extends TestCase
 {
     private User $user;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -20,7 +19,6 @@ class StoreProductTest extends TestCase
     }
 
     use RefreshDatabase;
-
 
     public function test_store_product()
     {
@@ -30,7 +28,7 @@ class StoreProductTest extends TestCase
             'code' => 'tvw-001',
             'name' => 'Milk',
             'quantifier' => 'box',
-            'quantity' => 5
+            'quantity' => 5,
         ]);
 
         $response->assertCreated();
@@ -44,11 +42,9 @@ class StoreProductTest extends TestCase
             'code' => 'tvw-001',
             'name' => 'Milk',
             'quantifier' => 'box',
-            'quantity' => "five"
+            'quantity' => 'five',
         ]);
 
         $response->assertUnprocessable();
     }
-
-
 }

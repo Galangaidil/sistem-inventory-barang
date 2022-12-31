@@ -19,26 +19,23 @@ class AuthenticationTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-
     public function test_users_can_authenticated_using_api()
     {
-
-        $response = $this->postJson(route("v1.auth.login"), [
-            "email" => $this->user->email,
-            "password" => "password",
+        $response = $this->postJson(route('v1.auth.login'), [
+            'email' => $this->user->email,
+            'password' => 'password',
         ]);
 
         $response->assertJson([
-            "message" => "Login berhasil"
+            'message' => 'Login berhasil',
         ]);
     }
 
-
     public function test_users_can_not_authenticated_with_invalid_password()
     {
-        $response = $this->postJson(route("v1.auth.login"), [
-            "email" => $this->user->email,
-            "password" => "Invalid password"
+        $response = $this->postJson(route('v1.auth.login'), [
+            'email' => $this->user->email,
+            'password' => 'Invalid password',
         ]);
 
         $response->assertStatus(422);
@@ -51,9 +48,7 @@ class AuthenticationTest extends TestCase
         $response = $this->postJson(route('v1.auth.logout'));
 
         $response->assertJson([
-            "message" => "Logout berhasil"
+            'message' => 'Logout berhasil',
         ]);
     }
-
-
 }

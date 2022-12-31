@@ -21,5 +21,4 @@ class GetUserDetailTest extends TestCase
 
         $response->assertOk();
     }
-
 }

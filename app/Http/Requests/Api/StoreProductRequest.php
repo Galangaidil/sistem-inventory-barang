@@ -28,7 +28,7 @@ class StoreProductRequest extends FormRequest
             'code' => ['required', 'string', 'max:10', 'unique:'.Product::class],
             'name' => ['required', 'string', 'max:255'],
             'quantifier' => ['required', 'string'],
-            'quantity' => ['required', 'numeric']
+            'quantity' => ['required', 'numeric'],
         ];
     }
 }

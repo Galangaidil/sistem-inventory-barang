@@ -28,8 +28,8 @@ class AuthenticationController extends Controller
         }
 
         return response()->json([
-            "message" => "Login berhasil",
-            "token" => $user->createToken("Token for " . $user->name)->plainTextToken
+            'message' => 'Login berhasil',
+            'token' => $user->createToken('Token for '.$user->name)->plainTextToken,
         ]);
     }
 
@@ -38,7 +38,7 @@ class AuthenticationController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json([
-            "message" => "Logout berhasil"
+            'message' => 'Logout berhasil',
         ]);
     }
 }

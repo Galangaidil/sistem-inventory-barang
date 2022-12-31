@@ -29,7 +29,7 @@ class UpdateProductRequest extends FormRequest
             'code' => ['required', 'string', 'max:10', Rule::unique(Product::class)->ignore(request()->route('product'))],
             'name' => ['required', 'string', 'max:255'],
             'quantifier' => ['required', 'string'],
-            'quantity' => ['required', 'numeric']
+            'quantity' => ['required', 'numeric'],
         ];
     }
 }

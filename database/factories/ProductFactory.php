@@ -20,7 +20,7 @@ class ProductFactory extends Factory
             'code' => fake()->numerify('tvw-######'),
             'name' => fake()->name(),
             'quantifier' => fake()->word(),
-            'quantity' => fake()->numberBetween(1, 200)
+            'quantity' => fake()->numberBetween(1, 200),
         ];
     }
 }

@@ -7,8 +7,6 @@ use App\Http\Requests\Api\StoreProductRequest;
 use App\Http\Requests\Api\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -22,11 +20,10 @@ class ProductController extends Controller
         return response()->json(Product::all());
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreProductRequest $request
+     * @param  StoreProductRequest  $request
      * @return JsonResponse
      */
     public function store(StoreProductRequest $request): JsonResponse
@@ -34,15 +31,15 @@ class ProductController extends Controller
         $product = Product::create($request->only(['code', 'name', 'quantifier', 'quantity']));
 
         return response()->json([
-            "message" => "Produk berhasil disimpan.",
-            "product" => $product
+            'message' => 'Produk berhasil disimpan.',
+            'product' => $product,
         ], 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return JsonResponse
      */
     public function show(Product $product): JsonResponse
@@ -53,8 +50,8 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateProductRequest $request
-     * @param Product $product
+     * @param  UpdateProductRequest  $request
+     * @param  Product  $product
      * @return JsonResponse
      */
     public function update(UpdateProductRequest $request, Product $product): JsonResponse
@@ -62,15 +59,15 @@ class ProductController extends Controller
         $product->update($request->validated());
 
         return \response()->json([
-           "message" => "Produk berhasil diperbarui.",
-           "product" => $product
+            'message' => 'Produk berhasil diperbarui.',
+            'product' => $product,
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return JsonResponse
      */
     public function destroy(Product $product): JsonResponse
@@ -78,7 +75,7 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json([
-            "message" => "Produk berhasil dihapus."
+            'message' => 'Produk berhasil dihapus.',
         ]);
     }
 }

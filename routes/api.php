@@ -15,18 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->group(function (){
-   Route::post('/login', [AuthenticationController::class, 'login'])->name('v1.auth.login');
+Route::prefix('v1')->group(function () {
+    Route::post('/login', [AuthenticationController::class, 'login'])->name('v1.auth.login');
 
-   Route::middleware('auth:sanctum')->group(function (){
-      Route::post('/logout', [AuthenticationController::class, 'logout'])->name('v1.auth.logout');
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [AuthenticationController::class, 'logout'])->name('v1.auth.logout');
 
-      Route::get('/user', function (Request $request) {
-          return $request->user();
-      })->name('v1.user.profile');
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        })->name('v1.user.profile');
 
-      Route::apiResource('products', \App\Http\Controllers\Api\ProductController::class, [
-          'names' => 'v1.products'
-      ]);
-   });
+        Route::apiResource('products', \App\Http\Controllers\Api\ProductController::class, [
+            'names' => 'v1.products',
+        ]);
+    });
 });

@@ -5,7 +5,6 @@ namespace Tests\Feature\Api;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -14,6 +13,7 @@ class DeleteProductTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Product $product;
 
     protected function setUp(): void
@@ -32,6 +32,4 @@ class DeleteProductTest extends TestCase
 
         $response->assertOk();
     }
-
-
 }
