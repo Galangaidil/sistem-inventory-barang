@@ -24,5 +24,9 @@ Route::prefix('v1')->group(function (){
       Route::get('/user', function (Request $request) {
           return $request->user();
       })->name('v1.user.profile');
+
+      Route::apiResource('products', \App\Http\Controllers\Api\ProductController::class, [
+          'names' => 'v1.products'
+      ]);
    });
 });
