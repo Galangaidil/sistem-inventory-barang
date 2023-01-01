@@ -1,66 +1,238 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## About Sistem Inventory Barang
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This repository contains API to manage inventory products at Toko Via Wijaya.
 
-## About Laravel
+## API Specification
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This section contains API specification of this repository. 
+Including auth, managing products, and so on so forth.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Auth
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Login
 
-## Learning Laravel
+- method: `POST`
+- endpoint: `/api/v1/login`
+- header:
+  - Accept: `application/json`
+- body:
+```json
+{
+    "email": "string",
+    "password": "string"
+}
+```
+- response:
+  - success:
+```json
+{
+    "message": "string",
+    "token": "string"
+}
+```  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+  - error:
+```json
+{
+    "message": "string"
+}
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Logout
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- method: `POST`
+- endpoint: `/api/v1/logout`
+- header:
+  - Accept: `application/json`
+  - Authorization: Bearer `token`
+- response:
+  - success:
+```json
+{
+    "message": "string"
+}
+```
 
-## Laravel Sponsors
+### products
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### create product
 
-### Premium Partners
+- method: `POST`
+- endpoint: `/api/v1/products`
+- header:
+    - Accept: `application/json`
+    - Authorization: Bearer `token`
+- body:
+```json
+{
+    "code": "char(10), unique",
+    "name": "string",
+    "quantity": "int",
+    "quantifier": "string"
+}
+```
+- response:
+    - success:
+```json
+{
+    "message": "string",
+    "product": {
+        "id": "long",
+        "code": "char",
+        "name": "string",
+        "quantifier": "string",
+        "quantity": "int",
+        "created_at": "timestamps",
+        "updated_at": "timestamps"
+    }
+}
+```  
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- error:
+```json
+{
+    "message": "string"
+}
+```
 
-## Contributing
+#### Get products
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- method: `GET`
+- endpoint: `/api/v1/products`
+- header:
+    - Accept: `application/json`
+    - Authorization: Bearer `token`
+- response:
+    - success:
+```json
+[
+    {
+        "id": "long",
+        "code": "char",
+        "name": "string",
+        "quantifier": "string",
+        "quantity": "int",
+        "created_at": "timestamps",
+        "updated_at": "timestamps"
+    },
+    {
+        "id": "long",
+        "code": "char",
+        "name": "string",
+        "quantifier": "string",
+        "quantity": "int",
+        "created_at": "timestamps",
+        "updated_at": "timestamps"
+    }
+]
+```  
 
-## Code of Conduct
+- error:
+```json
+{
+    "message": "string"
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Update product
 
-## Security Vulnerabilities
+- method: `PUT`
+- endpoint: `/api/v1/products/{id}`
+- header:
+    - Accept: `application/json`
+    - Authorization: Bearer `token`
+- body:
+```json
+{
+    "code": "char(10), unique",
+    "name": "string",
+    "quantity": "int",
+    "quantifier": "string"
+}
+```
+- response:
+    - success:
+```json
+{
+    "message": "string",
+    "product": {
+        "id": "long",
+        "code": "char",
+        "name": "string",
+        "quantifier": "string",
+        "quantity": "int",
+        "created_at": "timestamps",
+        "updated_at": "timestamps"
+    }
+}
+```  
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- error:
+```json
+{
+    "message": "string"
+}
+```
 
-## License
+#### Delete product
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- method: `DELETE`
+- endpoint: `/api/v1/products/{id}`
+- header:
+    - Accept: `application/json`
+    - Authorization: Bearer `token`
+- body:
+- response:
+    - success:
+```json
+{
+    "message": "string"
+}
+```  
+
+- error:
+```json
+{
+    "message": "string"
+}
+```
+
+#### Search products by code product
+
+- method: `GET`
+- endpoint: `/api/v1/products/search/{code}`
+- header:
+    - Accept: `application/json`
+    - Authorization: Bearer `token`
+- body:
+- response:
+    - success:
+```json
+[
+    {
+        "id": "long",
+        "code": "char",
+        "name": "string",
+        "quantifier": "string",
+        "quantity": "int",
+        "created_at": "timestamps",
+        "updated_at": "timestamps"
+    },
+    {
+        "id": "long",
+        "code": "char",
+        "name": "string",
+        "quantifier": "string",
+        "quantity": "int",
+        "created_at": "timestamps",
+        "updated_at": "timestamps"
+    }
+]
+```  
+
+- error:
+```json
+{
+    "message": "string"
+}
+```
