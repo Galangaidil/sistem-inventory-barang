@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthenticationController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,9 @@ Route::prefix('v1')->group(function () {
             return $request->user();
         })->name('v1.user.profile');
 
-        Route::apiResource('products', \App\Http\Controllers\Api\ProductController::class, [
+        Route::get('/products/search/{code}', [ProductController::class, 'search'])->name('v1.products.search');
+
+        Route::apiResource('products', ProductController::class, [
             'names' => 'v1.products',
         ]);
     });

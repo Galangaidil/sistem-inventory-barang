@@ -78,4 +78,17 @@ class ProductController extends Controller
             'message' => 'Produk berhasil dihapus.',
         ]);
     }
+
+    /**
+     * Search products by code product
+     *
+     * @param $code
+     * @return JsonResponse
+     */
+    public function search($code): JsonResponse
+    {
+        $products = Product::where('code', 'like', '%'.$code.'%')->get();
+
+        return response()->json($products);
+    }
 }
